@@ -1,1 +1,37 @@
-<p>cliente works!</p>
+<div class="p-10">
+    <form [formGroup]="cliente">
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Digite seu nome" formControlName="nome">
+            <mat-error *ngIf="cliente.controls['nome'].getError('pattern')">Nome inválido</mat-error>
+            <mat-error *ngIf="cliente.controls['nome'].getError('required')">Nome obrigatório</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Telefone</mat-label>
+            <input matInput placeholder="Digite seu telefone" formControlName="telefone" [mask]="'(00) 00000-0000'">
+            <mat-error *ngIf="cliente.controls['telefone'].getError('invalido')">Cpf/Cnpj inválido</mat-error>
+            <mat-error *ngIf="cliente.controls['telefone'].getError('required')">Cpf/Cnpj obrigatório</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Digite seu email" formControlName="email">
+            <mat-error *ngIf="cliente.controls['email'].getError('email')">Cpf/Cnpj inválido</mat-error>
+            <mat-error *ngIf="cliente.controls['email'].getError('required')">Cpf/Cnpj obrigatório</mat-error>
+        </mat-form-field>
+        <div class="flex flex-row justify-between">
+            <button class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded cursor-pointer">
+                Cancelar
+            </button>
+            <button (click)="adicionarCliente()" [disabled]="!cliente.valid"
+                [ngClass]="cliente.valid ? 'bg-green-500 hover:bg-green-600': 'bg-green-200'"
+                class=" text-white font-medium py-2 px-4 rounded cursor-pointer">
+                <span *ngIf="novo">
+                    Adicionar
+                </span>
+                <span *ngIf="!novo">
+                    Editar
+                </span>
+            </button>
+        </div>
+    </form>
+</div>

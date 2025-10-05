@@ -7,7 +7,7 @@
             <mat-icon matIconSuffix>search</mat-icon>
         </mat-form-field>
         <button class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 mt-4 rounded cursor-pointer"
-            (click)="adicionarEditarCliente()">
+            (click)="adicionarEditarCliente('novo')">
             Adicionar
         </button>
     </div>
@@ -34,7 +34,7 @@
                     matTooltip="Propriedades">home</mat-icon>
             </div>
             <div>
-                <mat-icon class="cursor-pointer" (click)="adicionarEditarCliente(cliente)"
+                <mat-icon class="cursor-pointer" (click)="adicionarEditarCliente(cliente.id)"
                     matTooltip="Editar cliente">edit</mat-icon>
             </div>
             <div>

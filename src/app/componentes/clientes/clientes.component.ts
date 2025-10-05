@@ -13,7 +13,7 @@ import { HttpParams } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Cliente } from '../../models/cliente.interface';
 import { ClienteService } from '../../services/cliente.service';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Import NgxMaskDirective and provideNgxMask
+import { NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Import NgxMaskDirective and provideNgxMask
 
 
 
@@ -29,7 +29,6 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Imp
         MatTooltipModule,
         ReactiveFormsModule,
 
-        NgxMaskDirective,
         NgxMaskPipe,
     ],
     providers: [
@@ -70,13 +69,8 @@ export class ClientesComponent {
         })
     }
 
-    adicionarEditarCliente(cliente?: Cliente) {
-        // let dialogRef = this.dialog.open(AdicionarProdutorComponent, {
-        // 	data: { produtor: produtor },
-        // });
-        // dialogRef.afterClosed().subscribe((resultado) => {
-        // 	this.listaProdutores();
-        // });
+    adicionarEditarCliente(id: string) {
+       this.router.navigate(['cliente', id])
     }
 
 

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
@@ -9,7 +9,10 @@ import { MatIconModule } from '@angular/material/icon'
 	styleUrl: './app.component.css'
 })
 export class AppComponent {
-	title = 'desafio-zoppy-front';
 
-	navega(rota: string) {}
+	private router = inject(Router);
+
+	navega(rota: string) {
+		this.router.navigate([rota]);
+	}
 }
