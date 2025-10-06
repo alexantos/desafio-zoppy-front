@@ -22,14 +22,14 @@
         <mat-form-field appearance="fill" class="w-full">
             <mat-label>Telefone</mat-label>
             <input matInput placeholder="Digite seu telefone" formControlName="telefone" [mask]="'(00) 00000-0000'">
-            <mat-error *ngIf="cliente.controls['telefone'].getError('invalido')">Cpf/Cnpj inválido</mat-error>
-            <mat-error *ngIf="cliente.controls['telefone'].getError('required')">Cpf/Cnpj obrigatório</mat-error>
+            <mat-error *ngIf="cliente.controls['telefone'].getError('invalido')">Telefone inválido</mat-error>
+            <mat-error *ngIf="cliente.controls['telefone'].getError('required')">Telefone obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="w-full">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Digite seu email" formControlName="email">
-            <mat-error *ngIf="cliente.controls['email'].getError('email')">Cpf/Cnpj inválido</mat-error>
-            <mat-error *ngIf="cliente.controls['email'].getError('required')">Cpf/Cnpj obrigatório</mat-error>
+            <mat-error *ngIf="cliente.controls['email'].getError('email')">Email inválido</mat-error>
+            <mat-error *ngIf="cliente.controls['email'].getError('required')">Email obrigatório</mat-error>
         </mat-form-field>
     </form>
 </div>

@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon'
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Cliente } from '../../models/cliente.interface';
 import { ClienteService } from '../../services/cliente.service';
 import { NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Import NgxMaskDirective and provideNgxMask
@@ -28,8 +29,8 @@ import { ModalConfirmacaoComponent } from '../modal-confirmacao/modal-confirmaca
         MatIconModule,
         MatDialogModule,
         MatTooltipModule,
+        MatProgressSpinnerModule,
         ReactiveFormsModule,
-
         NgxMaskPipe,
     ],
     providers: [
@@ -44,6 +45,8 @@ export class ClientesComponent {
 
     dialog = inject(MatDialog);
 
+    carregando: boolean = true;
+
     clientes: Cliente[] = [];
 
     pesquisar: FormControl = new FormControl();
@@ -52,7 +55,8 @@ export class ClientesComponent {
 
     ngOnInit(): void {
         this.listarClientes();
-        this.pesquisar.valueChanges.pipe(debounceTime(1000), distinctUntilChanged())
+        this.pesquisar.valueChanges
+            .pipe(debounceTime(1000), distinctUntilChanged())
             .subscribe((filtro) => {
                 this.listarClientes(filtro);
             });
@@ -64,31 +68,33 @@ export class ClientesComponent {
 
 
     listarClientes(pesquisa: string = '') {
+        this.carregando = true;
         let params: HttpParams = new HttpParams().set('nome', String(pesquisa))
         this.clienteService.listar(params).subscribe({
             next: (resultado: Cliente[]) => {
                 this.clientes = resultado;
+                this.carregando = false;
             }
         })
     }
 
     adicionarEditarCliente(id: string) {
-       this.router.navigate(['cliente', id])
+        this.router.navigate(['cliente', id])
     }
 
 
     deletarCliente(cliente: Cliente) {
         let dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
-        	data: {
-        		mensagem: 'Tem certeza que deseja excluir o cliente ' + cliente.nome + '?'
-        	},
+            data: {
+                mensagem: 'Tem certeza que deseja excluir o cliente ' + cliente.nome + '?'
+            },
         });
         dialogRef.afterClosed().subscribe((resultado) => {
-        	if (resultado) {
-        		this.clienteService.excluir(cliente.id).subscribe((resultado) => {
-        			this.listarClientes();
-        		})
-        	}
+            if (resultado) {
+                this.clienteService.excluir(cliente.id).subscribe((resultado) => {
+                    this.listarClientes();
+                })
+            }
         });
     }
 
