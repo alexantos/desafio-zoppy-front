@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Cliente } from '../../models/cliente.interface';
 import { ClienteService } from '../../services/cliente.service';
 import { NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Import NgxMaskDirective and provideNgxMask
+import { ModalConfirmacaoComponent } from '../modal-confirmacao/modal-confirmacao.component';
 
 
 
@@ -40,6 +41,8 @@ import { NgxMaskPipe, provideNgxMask } from 'ngx-mask'; // Import NgxMaskDirecti
 export class ClientesComponent {
 
     readonly clienteService = inject(ClienteService);
+
+    dialog = inject(MatDialog);
 
     clientes: Cliente[] = [];
 
@@ -75,18 +78,18 @@ export class ClientesComponent {
 
 
     deletarCliente(cliente: Cliente) {
-        // let dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
-        // 	data: {
-        // 		mensagem: 'Tem certeza que deseja excluir o produtor ' + produtor.nome + ' e consequentemente todas as suas propriedades e seus plantios?'
-        // 	},
-        // });
-        // dialogRef.afterClosed().subscribe((resultado) => {
-        // 	if (resultado) {
-        // 		this.produtorService.excluir(produtor.id).subscribe((resultado) => {
-        // 			this.listaProdutores();
-        // 		})
-        // 	}
-        // });
+        let dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
+        	data: {
+        		mensagem: 'Tem certeza que deseja excluir o cliente ' + cliente.nome + '?'
+        	},
+        });
+        dialogRef.afterClosed().subscribe((resultado) => {
+        	if (resultado) {
+        		this.clienteService.excluir(cliente.id).subscribe((resultado) => {
+        			this.listarClientes();
+        		})
+        	}
+        });
     }
 
     pegaIniciais(nome: any): string {

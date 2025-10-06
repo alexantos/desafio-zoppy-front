@@ -1,12 +1,12 @@
-<div class="flex flex-row justify-between">
+<div class="flex flex-col md:flex-row justify-between">
     <span class="text-4xl pt-4 font-light">Clientes</span>
-    <div class="flex flex-row gap-6 items-start">
+    <div class="flex flex-col md:flex-row gap-6 items-start">
         <mat-form-field appearance="fill">
             <mat-label>Nome do cliente</mat-label>
             <input matInput placeholder="Digite o nome" [formControl]="pesquisar">
             <mat-icon matIconSuffix>search</mat-icon>
         </mat-form-field>
-        <button class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 mt-4 rounded cursor-pointer"
+        <button class="bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-4 mt-4 rounded cursor-pointer"
             (click)="adicionarEditarCliente('novo')">
             Adicionar
         </button>
@@ -16,7 +16,7 @@
     <div *ngFor="let cliente of clientes" class="flex flex-row bg-white rounded-2xl w-full py-4 px-6 gap-6">
         <div class="flex flex-row w-1/12 items-center">
             <div
-                class="flex flex-col w-10 h-10 md:w-14 md:h-14 xl:w-16 xl:h-16 bg-green-500 rounded-full text-white text-xl md:text-2xl xl:text-3xl items-center justify-center">
+                class="flex flex-col w-10 h-10 md:w-14 md:h-14 xl:w-16 xl:h-16 bg-blue-800 rounded-full text-white text-xl md:text-2xl xl:text-3xl items-center justify-center">
                 {{ pegaIniciais(cliente.nome) }}
             </div>
         </div>
@@ -29,10 +29,6 @@
             </div>
         </div>
         <div class="flex flex-row justify-end items-center w-4/12 gap-4">
-            <div>
-                <mat-icon class="cursor-pointer" (click)="navega('cliente', cliente.id)"
-                    matTooltip="Propriedades">home</mat-icon>
-            </div>
             <div>
                 <mat-icon class="cursor-pointer" (click)="adicionarEditarCliente(cliente.id)"
                     matTooltip="Editar cliente">edit</mat-icon>
